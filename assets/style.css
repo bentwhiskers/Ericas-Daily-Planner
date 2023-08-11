@@ -3,6 +3,7 @@ body {
     font-size: 16px;
   }
   
+  
   textarea {
     background: transparent;
     border: none;
@@ -12,6 +13,18 @@ body {
     padding: 10px;
   }
   
+  .header {
+    background-color: #E27396;
+  }
+
+  .title {
+    background-color: #EA9AB2;
+  }
+
+  .time {
+    background-color: #EA9AB2;
+  }
+
   .description {
     white-space: pre-wrap;
   }
@@ -25,7 +38,7 @@ body {
   }
   
   .hour {
-    background-color: aliceblue;
+    background-color: #EAF2D7;
     color: #000000;
     border-top: 1px dashed #000000;
   }
@@ -49,7 +62,7 @@ body {
     border-left: 1px solid black;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #06aed5;
+    background-color: #B3DEE2;
     color: white;
   }
   
