@@ -22,7 +22,7 @@ $(function () {
     }
 
     function applyTense() {
-        var currentHour = parseInt(dayjs().format("H"));  // using 24-hour format for easy comparison
+        var currentHour = parseInt(dayjs().format("h")); 
 
         $("section[id^='hour']").each(function() {
             var blockHour = parseInt($(this).attr("id").split("-")[1]); // get the hour from the id
