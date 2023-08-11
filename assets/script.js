@@ -1,46 +1,51 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-var currentDayEl = $("#currentDay");
-var saveBtn = $(".saveBtn");
-var rootEl = $("#root");
-
 $(function () {
+
+    var currentDayEl = $("#currentDay");
+    var saveBtn = $(".saveBtn");
+
+    // Save to local storage on save button click
     saveBtn.on('click', function () {
         var value = $(this).siblings("textarea").val();
         var id = $(this).parent().attr("id");
         localStorage.setItem(id, value);
-        
     });
-    
-    function applyTense () {
-        currentHour = dayjs().format("h");
-        var timeBlock = $("section[id^='hour']");
 
-         if (currentHour == timeBlock) {
-            timeBlock.addClass('present');
-        } else if (currentHour > timeBlock) {
-            timeBlock.addClass('future');
-        } else { 
-            timeBlock.addClass('past');
-        };
-    
-    };
-    // TODO: Add code to get any user input that was saved in localStorage and set
-    // the values of the corresponding textarea elements. HINT: How can the id
-    // attribute of each time-block be used to do this?
-    //
-
-    function retrieveInput() {
-        var 
+    function renderInput() {
+        // For each textarea (user input area), check if there's a saved value in localStorage
+        $(".description").each(function() {
+            var timeBlockId = $(this).parent().attr("id");
+            var storedValue = localStorage.getItem(timeBlockId);
+            if (storedValue) {
+                $(this).val(storedValue);
+            }
+        });
     }
-    
+
+    function applyTense() {
+        var currentHour = parseInt(dayjs().format("H"));  // using 24-hour format for easy comparison
+
+        $("section[id^='hour']").each(function() {
+            var blockHour = parseInt($(this).attr("id").split("-")[1]); // get the hour from the id
+
+            if (blockHour === currentHour) {
+                $(this).addClass('present');
+            } else if (blockHour < currentHour) {
+                $(this).addClass('past');
+            } else {
+                $(this).addClass('future');
+            }
+        });
+    }
+
     function displayDate() {
         var currentDate = dayjs().format('MMMM DD YYYY [at] hh:mm a');
         currentDayEl.text(currentDate);
-    };
+    }
 
+    // Initial function calls
     displayDate();
     applyTense();
-  
+    renderInput();
 });
+
+
